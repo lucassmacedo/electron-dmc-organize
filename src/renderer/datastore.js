@@ -1,8 +1,16 @@
-import Datastore from 'nedb'
-import path from 'path'
-import { remote } from 'electron'
+import localforage from 'localforage'
 
-export default new Datastore({
-  autoload: true,
-  filename: path.join(remote.app.getPath('userData'), '/data.db')
+localforage.config({
+  driver: localforage.WEBSQL,
+  name: 'DMC'
 })
+
+const equipe = localforage.createInstance({
+  name: 'nameHere'
+})
+
+const sessions = localforage.createInstance({
+  name: 'nameHere2'
+})
+
+export default { equipe, sessions }

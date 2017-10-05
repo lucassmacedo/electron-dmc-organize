@@ -18,6 +18,7 @@
 
         <router-link class="navbar-item" :to="{ name: 'home'}">Home</router-link>
 
+        <router-link class="navbar-item" :to="{ name: 'equipe'}">Equipe</router-link>
         <router-link class="navbar-item" :to="{ name: 'directories'}">Converter</router-link>
 
         <div class="navbar-item has-dropdown is-hoverable">
