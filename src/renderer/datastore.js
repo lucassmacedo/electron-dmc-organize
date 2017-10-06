@@ -1,9 +1,7 @@
 import localforage from 'localforage'
 
-export const equipe = localforage.createInstance({
-  driver: [
-    localforage.WEBSQL
-  ],
-  name: 'DMC-EQUIPE'
+localforage.config({
+  driver: localforage.WEBSQL,
+  name: 'DMC-ORGANIZE'
 })
-export default { equipe }
+export default localforage

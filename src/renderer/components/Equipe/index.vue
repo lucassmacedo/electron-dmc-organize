@@ -12,30 +12,33 @@
                     <div class="control is-expanded is-clearfix">
                         <a @click="add" class="button is-info pull-right">
                             <i class="fa fa-plus fa-fw">
-                            </i>
+                            </i> Novo Membro
                         </a>
                     </div>
                 </div>
-                Novo Membro
+                
                 <table class="table">
                     <thead>
                         <tr>
                             <th>
                                 Nome
                             </th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
                             <th>
-                                Nome
                             </th>
                         </tr>
-                    </tfoot>
+                    </thead>
                     <tbody>
-                        <tr v-for='(item, index) in data'>
+                        <tr v-for='(item, index) in equipes'>
                             <th>
                                 {{ item.name }}
+                            </th>
+                            <th>
+                            <button @click="remove(item)" class="button is-danger" v-if="equipes.length > 1">
+                                <span class="icon">
+                                    <i class="fa fa-trash">
+                                    </i>
+                                </span>
+                            </button>
                             </th>
                         </tr>
                     </tbody>
@@ -46,54 +49,44 @@
 </template>
 
 <script>
-import { equipe } from '../../datastore'
+import localforage from '../../datastore'
 
 export default {
   name: 'home',
   data () {
     return {
       showSlashScreen: true,
-      data: null
+      equipes: []
     }
   },
   methods: {
     add (link) {
       this.$dialog.prompt({
-        message: `What's your name?`,
+        type: 'is-info',
+        message: `Nome da pessoa`,
         inputMaxlength: 20,
-        inputPlaceholder: 'e.g. John Doe',
-        onConfirm: (value) => equipe.setItem('name', value)
+        inputPlaceholder: 'Nome',
+        confirmText: 'Salvar',
+        cancelText: 'Cancelar',
+        onConfirm: (value) => {
+          this.equipes.push({ name: value })
+          localforage.setItem('equipe', this.equipes)
+        }
       })
+    },
+    remove: function (item) {
+      var index = this.equipes.indexOf(item)
+      if (index !== -1) {
+        this.equipes.splice(index, 1)
+        localforage.setItem('equipe', this.equipes)
+      }
     }
   },
   mounted () {
-    equipe.getItem('name').then((value) => {
-      console.log(value)
+    localforage.getItem('equipe').then((response) => {
+      this.equipes = response
     })
   }
 }
 </script>
-<style>
-    #wrapper {
-    background: #ccc;
-    height: 100vh;
-    padding: 60px 80px;
-    width: 100vw;
-  }
 
-  #logo {
-    background: #00aeef;
-    position:relative;
-    height: 100%;
-    width:100%;
-  } 
-
-  #logo img {
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    margin:auto;
-  }
-</style>

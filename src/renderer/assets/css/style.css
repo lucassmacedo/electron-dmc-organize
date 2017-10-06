@@ -80,3 +80,6 @@
 .list-complete-leave-active {
   position: absolute;
 }
+.config .field-label{
+  text-align: left;
+}

@@ -20,6 +20,7 @@
 
         <router-link class="navbar-item" :to="{ name: 'equipe'}">Equipe</router-link>
         <router-link class="navbar-item" :to="{ name: 'directories'}">Converter</router-link>
+        <router-link class="navbar-item" :to="{ name: 'config'}">Configurações</router-link>
 
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">
