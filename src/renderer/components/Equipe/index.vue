@@ -62,20 +62,14 @@ export default {
         message: `What's your name?`,
         inputMaxlength: 20,
         inputPlaceholder: 'e.g. John Doe',
-        onConfirm: (value) => {
-          // let name = { name: value }
-          equipe.setItem('equipe.name', value).then(function (value) {
-            console.log(value)
-          }).catch(function (err) {
-            // This code runs if there were any errors
-            console.log(err)
-          })
-        }
+        onConfirm: (value) => equipe.setItem('name', value)
       })
     }
   },
   mounted () {
-    console.log(equipe)
+    equipe.getItem('name').then((value) => {
+      console.log(value)
+    })
   }
 }
 </script>
